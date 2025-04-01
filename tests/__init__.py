@@ -37,5 +37,22 @@ class TestFileReading(unittest.TestCase):
         with self.assertRaises(FileNotFoundError):
             read_from_file(self.NON_EXISTENT_FILE_PATH)
 
+    def test_read_from_file_pandas_normal(self):
+        """Test if read_from_file_pandas correctly reads a text file using pandas."""
+        content = read_from_file_pandas(self.TEST_FILE_PATH)
+        expected_content = "Test line 1\nTest line 2\nTest line 3"
+        self.assertEqual(content, expected_content)
+
+    def test_read_from_file_pandas_empty(self):
+        """Test if read_from_file_pandas returns an empty string when reading an empty file."""
+        content = read_from_file_pandas(self.EMPTY_FILE_PATH)
+        self.assertEqual(content, "")
+
+    def test_read_from_file_pandas_non_existent(self):
+        """Test if read_from_file_pandas raises an error when trying to read a non-existent file."""
+        with self.assertRaises(FileNotFoundError):
+            read_from_file_pandas(self.NON_EXISTENT_FILE_PATH)
+
+
 if __name__ == "__main__":
     unittest.main()
