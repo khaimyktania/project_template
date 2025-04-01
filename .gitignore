@@ -4,3 +4,4 @@ Pipfile
 .virtualenvs/
 venv/
 .env
+data/
