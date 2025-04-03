@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 
 def read_from_console():
@@ -26,5 +28,12 @@ def read_from_file_pandas(filepath):
     Returns:
         str: The content of the file as a single string with lines joined by newline characters.
     """
-    df = pd.read_csv(filepath, header=None)
-    return "\n".join(df[0].astype(str))
+    try:
+        if os.path.getsize(filepath) == 0:
+            return ""
+        df = pd.read_csv(filepath, header=None)
+        return "\n".join(df[0].astype(str))
+    except FileNotFoundError:
+        raise FileNotFoundError(f"File '{filepath}' not found.")
+    except pd.errors.EmptyDataError:
+        return ""
